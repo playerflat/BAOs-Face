@@ -14,7 +14,6 @@ public class BluetoothHandler extends Handler{
     private ArrayAdapter<String> mConversationArrayAdapter;
     private BluetoothData data;
     private String mConnectedDeviceName = null;
-    private BluetoothAdapter mBluetoothAdapter = null;
     static String currentStatus = "not connected";
     private BluetoothChatService mChatService = null;
     private StringBuffer mOutStringBuffer;
