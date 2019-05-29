@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.welfarerobotics.welfareapplcation.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import bao.welfare.baoface.R;
 
@@ -29,6 +29,28 @@ public class Bluetooth {
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothChatService mChatService = null;
     private BluetoothData data = null;
+    public static Bluetooth bluetooth;
+    private BluetoothHandler handler;
+
+
+    /*
+    싱글톤의 변형임. 처음 메인에다가 박아두고 다른 액티비티에서 사용할 때는 Context로 안받고 사용하면 됨.
+    */
+    public Bluetooth getInstance(Context context){
+        if(bluetooth==null){
+            bluetooth = new Bluetooth(context);
+
+        }
+        return  bluetooth;
+    }
+
+    public Bluetooth getInstance(){
+
+
+        return bluetooth;
+
+
+    }
 
 
     public Bluetooth(Context context) {
@@ -50,7 +72,7 @@ public class Bluetooth {
             }
         };
 
-        final BluetoothHandler handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
+        handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 
@@ -101,6 +123,15 @@ public class Bluetooth {
 
 
     }
+
+    public void sendMessage(String msg){
+        handler.sendMessage(msg);
+
+    }
+   public void sendMessage(String SSID, String PWD){
+
+        handler.sendMessage(SSID, PWD);
+   }
 
 }
 
