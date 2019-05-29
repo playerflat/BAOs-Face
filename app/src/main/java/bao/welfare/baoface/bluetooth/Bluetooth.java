@@ -36,7 +36,7 @@ public class Bluetooth {
     /*
     싱글톤의 변형임. 처음 메인에다가 박아두고 다른 액티비티에서 사용할 때는 Context로 안받고 사용하면 됨.
     */
-    public Bluetooth getInstance(Context context){
+    public static Bluetooth getInstance(Context context){
         if(bluetooth==null){
             bluetooth = new Bluetooth(context);
 
@@ -44,7 +44,7 @@ public class Bluetooth {
         return  bluetooth;
     }
 
-    public Bluetooth getInstance(){
+    public static Bluetooth getInstance(){
 
 
         return bluetooth;
@@ -72,7 +72,7 @@ public class Bluetooth {
             }
         };
 
-        handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
+
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 
@@ -86,6 +86,7 @@ public class Bluetooth {
 
             mChatService = new BluetoothChatService(context, handler);
             mChatService.connect(device, true);
+            handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
             final Timer bttimer;
             TimerTask timerTask;
 
