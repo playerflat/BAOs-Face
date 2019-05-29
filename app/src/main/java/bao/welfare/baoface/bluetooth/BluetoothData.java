@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 public class BluetoothData {
 
-    boolean isRead = false;
-    boolean isCountdown = false;
+    boolean isRead;
+    boolean isCountdown;
 
 }

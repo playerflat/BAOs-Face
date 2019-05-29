@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
         VideoView view = findViewById(R.id.mouse);
         Bitmap thumb = ThumbnailUtils.createVideoThumbnail("file path/url", MediaStore.Images.Thumbnails.MINI_KIND);
 
-        
+
     }
 }
