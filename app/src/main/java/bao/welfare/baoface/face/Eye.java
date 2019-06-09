@@ -1,6 +1,8 @@
 package bao.welfare.baoface.face;
 
 
+import android.util.Log;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -9,40 +11,52 @@ import lombok.NoArgsConstructor;
  * @when : 5/26/2019 6:16 PM
  * @homepage : https://github.com/gusdnd852
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class Eye {
     private static String facialExpression = "neutral";
     private static Coordinate faceCoordinates;
-    private int eyeX;
-    private int eyeY;
+    private static float eyeX=0;
+    private static float eyeY=0;
+    private static Eye eye;
+    private final float weightX = 1.0f;
+    private final float weightY = 0.5f;
+    public static Eye getEye(){
+        if(eye==null){
+            eye = new Eye();
 
-    public static String getFacialExpression() {
-        return facialExpression;
+        }
+        return  eye;
+
     }
 
-    public static Coordinate getFaceCoordinates() {
-        return faceCoordinates;
+    public void seeEmotion(String emotion){
+        facialExpression = emotion;
+
     }
 
-    public static void see(String facialExpression, Coordinate faceCoordinates) {
+    public String getFacialExpression(){
+
+        return  facialExpression;
+    }
+    public void seeCoordinate( Coordinate faceCoordinates){
+        eyeX = ((faceCoordinates.getLeft()))*weightX;
+        eyeY = ((faceCoordinates.getTop()))*weightY;
+        Log.d("눈 확인","eyeX:"+eyeX+"  eyeY"+eyeY);
+
+    }
+
+    public void see(String facialExpression, Coordinate faceCoordinates) {
         Eye.facialExpression = facialExpression;
         Eye.faceCoordinates = faceCoordinates;
+
+
     }
 
-    public int getEyeX() {
+    public static float getEyeX() {
         return eyeX;
     }
 
-    public int getEyeY() {
+    public static float getEyeY() {
         return eyeY;
     }
 
-    public void setEyeX(int eyeX) {
-        this.eyeX = eyeX;
-    }
-
-    public void setEyeY(int eyeY) {
-        this.eyeY = eyeY;
-    }
 }

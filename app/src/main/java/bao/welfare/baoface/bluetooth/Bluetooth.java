@@ -77,50 +77,14 @@ public class Bluetooth {
 
 
         // Get the device MAC address
-        String address = "B8:27:EB:C9:9E:54";/*승민이형 바꿔주세요*/
+        String address = "B8:27:EB:16:AE:38";/*승민이형 바꿔주세요*/
         // Get the BluetoothDevice object
-
+        handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device'
-        try {
+        mChatService = new BluetoothChatService(context, handler);
+        mChatService.connect(device, true);
 
-            mChatService = new BluetoothChatService(context, handler);
-            mChatService.connect(device, true);
-            handler = new BluetoothHandler(data, mConversationArrayAdapter,mChatService);
-            final Timer bttimer;
-            TimerTask timerTask;
-
-            final long time = 30000;
-            final long lastTime = System.currentTimeMillis();
-            bttimer = new Timer();
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    while (true) {
-
-                        try {
-                            Thread.sleep(1000);
-                            handler.sendMessage("emotion");
-                            /*보낼 메세지*/
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-
-                @Override
-                public boolean cancel() {
-                    Log.v("", "타이머 종료");
-                    return super.cancel();
-                }
-            };
-            bttimer.schedule(timerTask, 0, 3000);
-
-        } catch (Exception e) {
-
-            System.out.println(e + "에러 종류가 뭐냐");
-
-        }
 
 
     }

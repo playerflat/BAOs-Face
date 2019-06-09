@@ -1,5 +1,6 @@
 package bao.welfare.baoface.face;
 
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 /**
@@ -10,8 +11,8 @@ import android.widget.VideoView;
 
 public class Face {
 static Face face=null;
-private VideoView eyes;
-private VideoView mouse;
+private ImageView eyes;
+private ImageView mouse;
 
 
 public Face getInstance(){
@@ -30,19 +31,19 @@ private Face(){
 
 }
 
-    public void setEyes(VideoView eyes) {
+    public void setEyes(ImageView eyes) {
         this.eyes = eyes;
     }
 
-    public void setMouse(VideoView mouse) {
+    public void setMouse(ImageView mouse) {
         this.mouse = mouse;
     }
 
-    public VideoView getEyes() {
+    public ImageView getEyes() {
         return eyes;
     }
 
-    public VideoView getMouse() {
+    public ImageView getMouse() {
         return mouse;
     }
 

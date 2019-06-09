@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bao.welfare.baoface.MainActivity;
 import bao.welfare.baoface.R;
 import bao.welfare.utill.Sound;
 
@@ -92,8 +93,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
         back_imageView.setOnClickListener(view -> {
-            Sound.get().effectSound(getApplicationContext(), R.raw.click);
-            finish();
+            Intent intent= new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         });
         //블루투스를 지원하지 않으면 null을 리턴한다
         if (mBluetoothAdapter == null) {

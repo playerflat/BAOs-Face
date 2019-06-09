@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bao.welfare.baoface.face.Coordinate;
+import bao.welfare.baoface.face.Eye;
+
 
 public class BluetoothHandler extends Handler{
     private ArrayAdapter<String> mConversationArrayAdapter;
@@ -59,6 +62,36 @@ public class BluetoothHandler extends Handler{
 //                    String readMessage = new String(readBuf);
                 String readMessage = (String) msg.obj;
                 Log.d("블루투스 통신", "readMessage = " + readMessage);
+                if(readMessage.contains("Emotion")) {
+                    String replace = readMessage.replace("Emotion:", "");
+                    Log.d("감정왔음:", "readMessage = " + replace);
+                    Eye.getEye().seeEmotion(replace);
+                }else if(readMessage.contains("Cordinate")){
+                    String replace = readMessage.replace("Cordinate:", "");
+                    String cordinates[]=replace.split(",");
+                    Coordinate coordinate = new Coordinate();
+
+                    cordinates[0]= cordinates[0].replace("height:","");
+                    cordinates[1]= cordinates[1].replace("width:","");
+                    cordinates[2]= cordinates[2].replace("left:","");
+                    cordinates[3]= cordinates[3].replace("top:","");
+                    cordinates[3]= cordinates[3].replace("l","");
+                    //Log.d("각도왔음:", "readMessage = " + cordinates[0]+cordinates[1]+cordinates[2]+cordinates[3]);
+                    try{
+                        coordinate.setHeight(Integer.parseInt(cordinates[0]));
+                        coordinate.setWidth(Integer.parseInt(cordinates[1]));
+                        coordinate.setLeft(Integer.parseInt(cordinates[2]));
+                        coordinate.setTop(Integer.parseInt(cordinates[3]));
+                        Eye.getEye().seeCoordinate(coordinate);
+
+                    }catch (Exception e){
+
+
+                    }
+
+                    Log.d("각도왔음:", "readMessage = " + readMessage);
+
+                }
                 //TODO: if message is json -> callback from RPi
                 if (isJson(readMessage)) {
                     handleCallback(readMessage);
@@ -100,6 +133,10 @@ public class BluetoothHandler extends Handler{
 
     }
 
+    public void setmChatService(BluetoothChatService mChatService){
+
+       this.mChatService =mChatService;
+    }
     /**
      * Sends a message.
      *
